@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+<section>
+  <h1 class="container text-center">Liste des plaintes</h1>
+  <div class="container mt-4">
+    
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+
+          <th scope="col">Citoyen</th>
+          <th scope="col">Categorie</th>
+          <th scope="col">Status</th>
+          <th scope="col">Date</th>
+          <th scope="col">Details</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+        {% for plainte in plaintes %}
+        <tr>
+          <td>{{ plainte.citoyen.username }}</td>
+          <td>{{ plainte.categorie }}</td>
+          <td>{{ plainte.statut }}</td>
+          <td>{{ plainte.date_creation }}</td>
+          <td><a href="{% url 'details' plainte.id %}">Voir plus</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+  
+{% endblock %}
