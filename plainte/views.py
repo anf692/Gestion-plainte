@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import  login
-from django.contrib import messages
+from django.contrib.auth import  login,logout
 from .models import*
 from .forms import*
 
@@ -16,7 +15,6 @@ def ajouter_plainte(request):
             plainte = form.save(commit=False)
             plainte.citoyen = request.user
             plainte.save()
-            messages.success(request, 'Votre plainte a été enregistrée.')
             return redirect('index')
     else:
         form = AjoutPlainte()
@@ -47,3 +45,7 @@ def index (request):
 def details (request, id):
     plaintes = Plainte.objects.get(id=id)
     return render(request, 'details.html', {'plaintes': plaintes})
+
+def Deconnection(request):
+    logout(request)
+    return redirect("login")

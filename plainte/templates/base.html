@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Gestion aprrenant{% endblock %}</title>
+    <title>{% block title %}Gestion plainte{% endblock %}</title>
     <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -38,22 +38,24 @@
 
 <body class="index-page">
 
-    <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container position-relative d-flex align-items-center">
+    <header id="header" class="header d-flex align-items-center sticky-top ">
+        <div class="container position-relative d-flex align-items-center ">
     
-          <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+          <a href="#" class="logo d-flex align-items-center me-auto">
             <img src="{% static '/img/isepd.png' %}" alt="">
             <!-- <h1 class="sitename">Company</h1><span>.</span> -->
           </a>
     
-          <nav id="navmenu" class="navmenu">
+          <nav id="navmenu" class="navmenu ">
             <ul>
-              <li><a href="{% url 'index' %}" class="active" style="text-decoration: none;">Home</a></li>
+            
               {% if user.is_authenticated %}
-              <li><a href="{% url 'ajouter_plainte' %}">Ajouter une plainte</a></li>
-              <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+              <li><a href="{% url 'index' %}" class="active" style="text-decoration: none;">Home</a></li>
+              <li><a href="{% url 'ajouter_plainte' %}" class="text-decoration-none">Ajouter une plainte</a></li>
+              <li><a href="{% url 'logout' %}" class="text-decoration-none">Déconnexion</a></li>
               {% else %}
-              <li><a href="{% url 'login' %}">Connexion</a></li>
+              <li><a href="{% url 'login' %}" class="text-decoration-none">Connexion</a></li>
+              <li><a href="{% url 'inscrire' %}" class="text-decoration-none">Inscription</a></li>
               {% endif %}
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
