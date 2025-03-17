@@ -19,21 +19,26 @@
         <tr>
 
           <th scope="col">Citoyen</th>
+          <th scope="col">Locoliter</th>
           <th scope="col">Categorie</th>
           <th scope="col">Status</th>
           <th scope="col">Date</th>
           <th scope="col">Details</th>
-        
+          <th scope="col">Modifier</th>
+          <th scope="col">Supprimer</th>
         </tr>
       </thead>
       <tbody>
         {% for plainte in plaintes %}
         <tr>
           <td>{{ plainte.citoyen.username }}</td>
+          <td>{{ plainte.Localiter }}</td>
           <td>{{ plainte.categorie }}</td>
           <td>{{ plainte.statut }}</td>
           <td>{{ plainte.date_creation }}</td>
           <td><a href="{% url 'details' plainte.id %}">Voir plus</a></td>
+          <td><a href="{% url 'modifier' plainte.id %}" style="color: yellow;">Midifier</a></td>
+          <td><a href="{% url 'supprimer' plainte.id %}" style="color: red;">Supprimer</a></td>
         </tr>
         {% endfor %}
       </tbody>
