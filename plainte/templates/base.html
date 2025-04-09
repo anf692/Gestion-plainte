@@ -50,7 +50,7 @@
             <ul>
             
               {% if user.is_authenticated %}
-              <li><a href="{% url 'index' %}" class="active" style="text-decoration: none;">Home</a></li>
+              <li><a href="{% url 'index' %}" class="active" style="text-decoration: none;">Acceuil</a></li>
               <li><a href="{% url 'ajouter_plainte' %}" class="text-decoration-none">Ajouter une plainte</a></li>
               <li><a href="{% url 'logout' %}" class="text-decoration-none">Déconnexion</a></li>
               {% else %}

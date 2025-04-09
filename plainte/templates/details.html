@@ -15,12 +15,18 @@
     }
 </style>
 <body>
-    <div class="card mb-30" style="width: 600px; height: 650px;">
+    <div class="card mb-30 " style="width: 600px; height: 900px;">
         <div class="text-center">
             <h1>Les details </h1>
             <hr>
         </div>
-        {{ plaintes.image.urls }}
+    
+        {% if plaintes.image %}
+            <img src="{{ plaintes.image.url }}" alt="Image de la plainte" style="max-width: 100%;">
+        {% else %}
+            <p>Aucune image disponible</p>
+        {% endif %}
+    
         <div class="card-body">
           <h3 class="card-title">Categorie: {{ plaintes.categorie }}</h3>
           <p class="card-text">Description: {{ plaintes.description }}</p>
@@ -28,7 +34,6 @@
           <p class="card-text"><small class="text-body-secondary">Publie le : {{ plaintes.date_creation }}</small></p>
         </div>
     </div>
-      
     
 </body>
 </html>
