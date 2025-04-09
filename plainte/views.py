@@ -6,11 +6,11 @@ from .forms import*
 
 # Create your views here.
 
-#fonction pour ajouter  des plaintes
+
 @login_required
 def ajouter_plainte(request):
     if request.method == 'POST':
-        form = AjoutPlainte(request.POST)
+        form = AjoutPlainte(request.POST, request.FILES)  
         if form.is_valid():
             plainte = form.save(commit=False)
             plainte.citoyen = request.user
@@ -19,6 +19,7 @@ def ajouter_plainte(request):
     else:
         form = AjoutPlainte()
     return render(request, 'ajout_plainte.html', {'form': form})
+
 
 #fonction pour s'inscrire
 def inscription(request):

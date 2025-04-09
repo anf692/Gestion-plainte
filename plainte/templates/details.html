@@ -20,11 +20,7 @@
             <h1>Les details </h1>
             <hr>
         </div>
-        {% if plainte.image %}
-            <img src="{{ plaintes.image.url }}" alt="Image de la plainte" style="max-width: 100%;">
-        {% else %}
-            <p>Aucune image</p>
-        {% endif %}
+        {{ plaintes.image.urls }}
         <div class="card-body">
           <h3 class="card-title">Categorie: {{ plaintes.categorie }}</h3>
           <p class="card-text">Description: {{ plaintes.description }}</p>
