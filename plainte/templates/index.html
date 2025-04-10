@@ -10,10 +10,26 @@
   }
 </style>
 
+
+
+
+
+<form method="GET" action="" class="container mb-3" id="searchForm">
+  <div class="input-group">
+    <select name="categorie" class="form-select" id="categorieSelect">
+      <option value="">Toutes les catégories</option>
+      {% for cat in categories %}
+        <option value="{{ cat }}" {% if request.GET.categorie == cat %}selected{% endif %}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-success" type="submit">Filtrer</button>
+  </div>
+</form>
+
 <section style="height: 390px;">
   <h1 class="container text-center">Liste des plaintes</h1>
   <div class="container mt-4">
-    
+
     <table class="table">
       <thead class="table-dark">
         <tr>
@@ -45,6 +61,11 @@
 
   </div>
 </section>
+<script>
+  document.getElementById('categorieSelect').addEventListener('change', function () {
+    document.getElementById('searchForm').submit();
+  });
+</script>
 
   
 {% endblock %}

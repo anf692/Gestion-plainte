@@ -42,9 +42,23 @@ def inscription(request):
 
 
 #fonction pour afficher la listes des plainte
-def index (request):
-    plaintes = Plainte.objects.all().order_by('date_creation')
-    return render(request, 'index.html', {'plaintes': plaintes})
+from django.shortcuts import render
+from .models import Plainte
+
+def index(request):
+    categorie_recherche = request.GET.get('categorie', '')
+    plaintes = Plainte.objects.all()
+    
+    if categorie_recherche:
+        plaintes = plaintes.filter(categorie=categorie_recherche)
+
+    categories = Plainte.objects.values_list('categorie', flat=True).distinct()
+
+    context = {
+        'plaintes': plaintes,
+        'categories': categories,
+    }
+    return render(request, 'index.html', context)
 
 #fonction pour afficher la details de chaque plainte
 def details(request, id):
