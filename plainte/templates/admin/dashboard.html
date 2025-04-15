@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #f5f5f5;
+  }
+
+  .card-style {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .table thead th {
+    background-color: black;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  .badge-en-attente {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  .badge-en-cours {
+    background-color: #f8d775;
+    color: #000;
+  }
+
+  .badge-resolue {
+    background-color: #27ae60;
+    color: white;
+  }
+
+  .update-button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .update-button:hover {
+    background-color: #135cb5;
+  }
+
+  .form-select-sm {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+
+  .logosn{
+    text-align: center;
+    align-items: center;
+   
+  }
+  .logosn img{
+    width: 300px;
+    margin-bottom: 10px;
+  }
+</style>
+
+<div  class="logosn"><img  src="{% static 'img/logo-sn.png' %}" alt="logo_wakh_sa_problemme"></div>
+<div class="container mt-5">
+  <div class="card-style">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Citoyen</th>
+          <th>Catégorie</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for plainte in plaintes %}
+        <tr>
+          <td>{{ plainte.citoyen.username }}</td>
+          <td>{{ plainte.categorie }}</td>
+          <td>
+            <span class="
+              badge
+              {% if plainte.statut == 'En attente' %}badge-en-attente
+              {% elif plainte.statut == 'En cours' %}badge-en-cours
+              {% elif plainte.statut == 'Résolue' %}badge-resolue
+              {% endif %}
+              p-2 rounded">
+              {{ plainte.statut }}
+            </span>
+          </td>
+          <td>
+            <form method="POST" class="d-flex align-items-center">
+              {% csrf_token %}
+              <select name="statut" class="form-select form-select-sm me-2" style="width: auto;">
+                <option value="En attente" {% if plainte.statut == "En attente" %}selected{% endif %}>En attente</option>
+                <option value="En cours" {% if plainte.statut == "En cours" %}selected{% endif %}>En cours</option>
+                <option value="Résolue" {% if plainte.statut == "Résolue" %}selected{% endif %}>Résolue</option>
+              </select>
+              <input type="hidden" name="plainte_id" value="{{ plainte.id }}">
+              <button type="submit" class="update-button">Mettre à jour</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

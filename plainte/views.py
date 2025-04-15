@@ -87,3 +87,4 @@ def Supprimer(request,id):
 def Deconnection(request):
     logout(request)
     return redirect("login")
+
