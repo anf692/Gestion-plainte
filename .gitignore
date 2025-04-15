@@ -1,0 +1,9 @@
+db.sqplite3
+
+__pycache__/
+
+*.pyc 
+
+.log
+
+.env
