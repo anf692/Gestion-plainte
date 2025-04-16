@@ -7,6 +7,10 @@
     body{
       background-color:gainsboro ;
     }
+    .inscrire{
+        text-decoration: none;
+        color: green;
+    }
   </style>
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="card shadow-lg p-4" style="width: 400px;">
@@ -18,7 +22,7 @@
             </div>
             <button type="submit" class="btn btn-success w-100">Se connecter</button>
         </form>
-        <a href="#">Mot de passe oublié ?</a>
+        <p>J'ai pas de compte <a  class="inscrire" href="{% url 'inscrire' %}">S'incrire</a></p>
     </div>
 </div>
 {% endblock %}

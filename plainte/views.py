@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  login,logout
+from django.contrib.auth.forms import AuthenticationForm
 from .models import*
 from .forms import*
 
@@ -34,17 +35,32 @@ def inscription(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             login(request, user)  # Connecter automatiquement
-            return redirect('index')
+            return redirect('login')
     else:
         form = Inscription()
 
     return render(request, 'inscrire.html', {'form': form})
 
+#fonction pour se connecter
+
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
+def connexion(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('acceuil')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'connexion.html', {'form': form})
+
+def Acceuil(request):
+    return render(request, "acceuil.html")
 
 #fonction pour afficher la listes des plainte
-from django.shortcuts import render
-from .models import Plainte
-
 def index(request):
     categorie_recherche = request.GET.get('categorie', '')
     plaintes = Plainte.objects.all()
@@ -86,5 +102,5 @@ def Supprimer(request,id):
 
 def Deconnection(request):
     logout(request)
-    return redirect("login")
+    return redirect("connexion")
 

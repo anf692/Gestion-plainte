@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: rgb(231, 227, 227);
+  }
+
+  .logosn {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .logosn img {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .description {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px auto;
+    max-width: 700px;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .btn-home {
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  .how-it-works {
+    margin-top: 60px;
+    padding: 40px 20px;
+    background-color: white;
+    border-radius: 15px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .how-it-works h2 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .step {
+    max-width: 250px;
+  }
+
+  .step img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+  }
+
+  .step p {
+    font-size: 16px;
+  }
+  .banner{
+    /* background-color:rgb(193, 190, 190); */
+    color: black;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 32px;
+  }
+  .btn-home{
+    margin-bottom: 10;
+    background-color: green;
+    color: white;
+    margin-bottom: 15px;
+  }
+  .btn-home:hover{
+    background-color: gray;
+    color: white;
+    border: 1px solid green;
+  }
+  .btn-home1{
+    margin-bottom: 15px;
+    background-color: white;
+    color: green;
+    border: none;
+  }
+  .btn-home1:hover{
+    background-color: gray;
+    color: white;
+    border: 1px solid green;
+  }
+  strong{
+    color: green;
+  }
+
+</style>
+
+    <div class="logosn">
+    <img src="{% static 'img/logo-sn.png' %}" alt="logo_wakh_sa_problemme">
+    </div>
+
+<div class="banner">
+    <div class="description">
+    <p>
+        Bienvenue sur la plateforme <strong>Wakh Sa Problème</strong> !<br>
+        Une application citoyenne qui permet de signaler des problèmes dans votre quartier,
+        suivre leur traitement et participer activement à la vie locale.
+    </p>
+    </div>
+
+    <div class="btn-container">
+    <a href="{% url 'index' %}" class="btn-home">Afficher les plaintes</a>
+    <a href="{% url 'ajouter_plainte' %}" class="btn btn-primary btn-home1">Ajouter une plainte</a>
+    </div>
+</div>
+<div class="how-it-works">
+  <h2>Comment ça marche ?</h2>
+  <div class="steps">
+    <div class="step">
+      <img src="{% static 'img/icon1.png' %}" alt="S'inscrire">
+      <p><strong>1. S'inscrire</strong><br>Créez un compte pour accéder à toutes les fonctionnalités.</p>
+    </div>
+    <div class="step">
+      <img src="{% static 'img/icon2.png' %}" alt="Formulaire">
+      <p><strong>2. Remplir le formulaire</strong><br>Déposez votre plainte avec tous les détails nécessaires.</p>
+    </div>
+    <div class="step">
+      <img src="{% static 'img/icon3.png' %}" alt="Suivi">
+      <p><strong>3. Suivre le statut</strong><br>Consultez l’évolution de vos plaintes sur la page des plaintes.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
