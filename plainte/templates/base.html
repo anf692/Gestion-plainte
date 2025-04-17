@@ -36,29 +36,43 @@
   ======================================================== -->
 </head>
 <style>
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
   .logo{
     width: 200px; /* ou toute autre taille souhaitée */
-    height: auto; /* garde les proportions */
+    height: 70px;
+    object-fit: contain;/* garde les proportions */
   }
+  .navmenu{
+    display: flex;
+    gap: 36px;
+    list-style: none;
+}
+.navmenu li a {
+    text-decoration: none;
+    color: black;
+}
   
 </style>
 <body class="index-page">
 
-    <header id="header" class="header d-flex align-items-center sticky-top ">
-        <div class="container position-relative d-flex align-items-center ">
-    
-          <a href="#" class="logo d-flex align-items-center me-auto">
+    <header id="header" class="header">
+          
             <img class="logo" src="{% static '/img/logo_wakh_sa_problemme.jpg' %}"   alt="">
             <!-- <h1 class="sitename">Company</h1><span>.</span> -->
-          </a>
+          
     
-          <nav id="navmenu" class="navmenu ">
+          <nav id="navmenu" class="navmenu">
             <ul>
             
               {% if user.is_authenticated %}
               <li><a href="{% url 'acceuil' %}"class="active" style="text-decoration: none;">Acceuil</a></li>
               <li><a href="{% url 'index' %}" style="text-decoration: none;">Plaintes</a></li>
-              <li><a href="{% url 'ajouter_plainte' %}" class="text-decoration-none">Ajouter une plainte</a></li>
+              <li><a href="{% url 'ajouter_plainte' %}" class="text-decoration-none">Deposer une plainte</a></li>
               <li><a href="{% url 'logout' %}" class="text-decoration-none">Déconnexion</a></li>
               {% else %}
               <li><a href="{% url 'connexion' %}" class="text-decoration-none">Connexion</a></li>
@@ -75,7 +89,6 @@
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
     
-        </div>
       </header>
 
       <div class="container mt-4">
