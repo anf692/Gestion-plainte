@@ -1,31 +1,55 @@
 from django import forms
-from .models import  Plainte
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import get_user_model
+from .models import Plainte  # Si vous avez un modèle Profile avec le champ Telephone
 
 class AjoutPlainte(forms.ModelForm):
     class Meta:
         model = Plainte
-        fields = ['Localiter','categorie', 'description','image']
+        fields = ['Localiter', 'categorie', 'description', 'image']
         widgets = {
-             'Localiter': forms.Select(attrs={'class': 'form-control'}),
-             'categorie': forms.Select(attrs={'class': 'form-control'}),
-             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-             'image': forms.FileInput(
-                attrs={
-                    'class': 'form-control-file'
-                }
-            )
-         }
+            'Localiter': forms.Select(attrs={'class': 'form-control'}),
+            'categorie': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'image': forms.FileInput(attrs={'class': 'form-control-file'})
+        }
 
-class Inscription(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '********'}), label="Mot de passe")
-    Telephone = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': '77 000 00 00'}), label="Telephone")
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Example@'}), label="Adress email")
-    Utilisateur = forms.CharField(max_length=150,required=True,label="Nom complet",
-        widget=forms.TextInput(attrs={'placeholder': 'Nom d\'utilisateur'}),
-        help_text=''  # Supprime le message d'aide
+
+Utilisateur = get_user_model()
+
+class FormulaireConnexion(UserCreationForm):
+    username = forms.CharField(
+        label="Nom d'utilisateur",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'}),
+    )
+    password1 = forms.CharField(
+        label="Mot de passe",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'}),
+    )
+    
+    password2 = forms.CharField(
+        label="Confirmer le mot de passe",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmation du mot de passe'}),
     )
 
     class Meta:
-        model = User
-        fields = ['Utilisateur', 'email','Telephone', 'password']
+        model = Utilisateur 
+        fields = ('username', 'password1', 'password2')
+
+class Connexion(AuthenticationForm):
+    username = forms.CharField(
+        label="Nom d'utilisateur",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Nom d\'utilisateur'  # Corrigé le placeholder
+        }),
+    )
+    password = forms.CharField(
+        label="Mot de passe",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Mot de passe'
+        }),
+    )
