@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import  login,logout
+from django.contrib.auth import  login,logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.db import IntegrityError
 from .models import*
 from .forms import*
 
@@ -27,35 +29,38 @@ def ajouter_plainte(request):
     return render(request, 'ajout_plainte.html', {'form': form, 'image': image})
 
 #fonction pour s'inscrire
-def inscription(request):
+# Inscription d'un nouvel utilisateur
+def inscription(request):  # Suppression de @login_required
     if request.method == 'POST':
-        form = Inscription(request.POST,request.FILES)
+        form = FormulaireConnexion(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            login(request, user)  # Connecter automatiquement
-            return redirect('login')
+            user = form.save()  # Sauvegarde et récupère l'utilisateur
+            # login(request, user)  # Connexion automatique après inscription
+            return redirect("connexion")
     else:
-        form = Inscription()
-
+        form = FormulaireConnexion()
+    
     return render(request, 'inscrire.html', {'form': form})
 
-#fonction pour se connecter
-
-from django.views.decorators.csrf import csrf_protect
-
-@csrf_protect
+# Connexion d'un utilisateur
 def connexion(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('acceuil')
+        form = Connexion(request.POST)
+        
+        username = request.POST.get('username')  # Utilisation de .get() pour éviter KeyError
+        password = request.POST.get('password')  # Vérifier que le champ HTML a bien name="password"
+
+        user = authenticate(request, username=username, password=password)  # Note: ajout de request comme premier paramètre
+        if user is not None:
+            login(request, user)  
+            return redirect("acceuil")
+        else:
+            messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect')
     else:
-        form = AuthenticationForm()
+        form = Connexion()  # Crée un formulaire vide pour les requêtes GET
+
     return render(request, 'connexion.html', {'form': form})
+
 
 def Acceuil(request):
     return render(request, "acceuil.html")
